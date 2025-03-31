@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const nodeExternals = require('webpack-node-externals');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
+import * as nodeExternals from 'webpack-node-externals';
+import { RunScriptWebpackPlugin } from 'run-script-webpack-plugin';
 
 module.exports = function (options, webpack) {
   return {
@@ -18,7 +16,10 @@ module.exports = function (options, webpack) {
       new webpack.WatchIgnorePlugin({
         paths: [/\.js$/, /\.d\.ts$/],
       }),
-      new RunScriptWebpackPlugin({ name: options.output.filename }),
+      new RunScriptWebpackPlugin({
+        name: options.output.filename,
+        autoRestart: false,
+      }),
     ],
   };
 };

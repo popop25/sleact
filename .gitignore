@@ -1,4 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
+*
+*/
+
+# ch3 폴더는 예외 처리
+!ch3/
+!ch3/**
 logs
 *.log
 npm-debug.log*
