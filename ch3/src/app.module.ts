@@ -14,9 +14,14 @@ import { AuthModule } from './auth/auth.module';
 import { Workspaces } from './entities/Workspaces';
 import { WorkspaceMembers } from './entities/WorkspaceMembers';
 import { ChannelMembers } from './entities/ChannelMembers';
+import { ChannelChats } from './entities/ChannelChats';
+import { Channels } from './entities/Channels';
+import { DMs } from './entities/DMs';
+import { Mentions } from './entities/Mentions';
 
 @Module({
   imports: [
+    //forRoot 다음에는 설정이 온다.
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     UsersModule,
@@ -30,13 +35,24 @@ import { ChannelMembers } from './entities/ChannelMembers';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
+      entities: [
+        ChannelChats,
+        ChannelMembers,
+        Channels,
+        DMs,
+        Mentions,
+        Users,
+        WorkspaceMembers,
+        Workspaces,
+      ],
       autoLoadEntities: true,
       keepConnectionAlive: true,
       migrations: [__dirname + '/migrations/*.ts'],
       charset: 'utf8mb4',
-      synchronize: false,
+      synchronize: false, //처음에만 true로 테이블 만들고 이후에는 false로 할것
       logging: true,
     }),
+    //forfeature를 읽어서 연결함
     TypeOrmModule.forFeature([
       Users,
       Workspaces,
